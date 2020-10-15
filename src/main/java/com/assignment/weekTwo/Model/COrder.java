@@ -29,10 +29,10 @@ public class COrder {
     @Enumerated(value = EnumType.STRING)
     private Status orderStatus;
 
-    @ApiModelProperty(name = "orderDate", required = false, notes = "Date of order")
-    @Column(name = "orderdate")
-    @CreationTimestamp
-    private java.sql.Timestamp orderDate;
+//    @ApiModelProperty(name = "orderDate", required = false, notes = "Date of order")
+//    @Column(name = "orderdate")
+//    @CreationTimestamp
+//    private java.sql.Timestamp orderDate;
 
     @ApiModelProperty(name = "customerName", required = true, notes = "Name of Customer")
     @Column(name = "customername")
