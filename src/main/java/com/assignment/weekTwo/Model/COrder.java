@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,10 +30,10 @@ public class COrder {
     @Enumerated(value = EnumType.STRING)
     private Status orderStatus;
 
-//    @ApiModelProperty(name = "orderDate", required = false, notes = "Date of order")
-//    @Column(name = "orderdate")
-//    @CreationTimestamp
-//    private java.sql.Timestamp orderDate;
+    @ApiModelProperty(name = "orderDate", required = false, notes = "Date of order")
+    @Column(name = "orderdate")
+    @CreationTimestamp
+    private java.sql.Timestamp orderDate;
 
     @ApiModelProperty(name = "customerName", required = true, notes = "Name of Customer")
     @Column(name = "customername")
@@ -56,5 +57,24 @@ public class COrder {
 
     public enum Status{
         PENDING, SHIPPED, CANCELLED, COMPLETED;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof COrder)) return false;
+        COrder cOrder = (COrder) o;
+        return getOrderId() == cOrder.getOrderId() &&
+                getOrderStatus() == cOrder.getOrderStatus() &&
+                Objects.equals(getOrderDate(), cOrder.getOrderDate()) &&
+                Objects.equals(getCustomerName(), cOrder.getCustomerName()) &&
+                Objects.equals(getCustomerAddress(), cOrder.getCustomerAddress()) &&
+                Objects.equals(getOrderDetails(), cOrder.getOrderDetails()) &&
+                Objects.equals(getOrderBill(), cOrder.getOrderBill());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getOrderId(), getOrderStatus(), getOrderDate(), getCustomerName(), getCustomerAddress(), getOrderDetails(), getOrderBill());
     }
 }
